@@ -34,9 +34,10 @@
     </div>
     <div class="menu-bar">
       <!-- <cell is-link title="我的VIP卡"></cell> -->
+      <r-cell title="我的订单" link="/orders"></r-cell>
       <r-cell title="我的爱车" link="/my-car-list"></r-cell>
       <r-cell title="我的关注" link="/follow"></r-cell>
-      <r-cell title="我的订单" link="/orders"></r-cell>
+      <r-cell title="我的会员卡" link="/vip"></r-cell>
       <r-cell @click.native="showCostomer" title="我的客服" link="/"></r-cell>
       <!-- <r-cell @click.native="toggleShow" title="我的足迹" link="/"></r-cell> -->
       <!-- <r-cell @click.native="toggleShow" title="投诉与建议" link="/"></r-cell> -->
@@ -45,7 +46,7 @@
     <div v-transfer-dom>
       <x-dialog v-model="customerShow" hide-on-blur class="customer" :dialog-style="dialogStyle">
         <p class="customer-title">联系客服</p>
-        <p class="customer-phone"><a href="tel:89932632">89932632</a></p>
+        <p class="customer-phone"><a href="tel:057989932632">0579-89932632</a></p>
       </x-dialog>
     </div>
     <router-view></router-view>

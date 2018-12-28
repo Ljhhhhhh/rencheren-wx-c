@@ -35,3 +35,14 @@ export function getUserinfo(token) {
     },
   })
 }
+
+export function getVip() {
+  return request({
+    url: 'user/queryByUsrId',
+    method: 'POST',
+    params: {
+      data: {
+      },
+    },
+  })
+}

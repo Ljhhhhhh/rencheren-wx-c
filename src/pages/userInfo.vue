@@ -18,14 +18,14 @@
         </r-cell>
         <r-cell title="车辆信息" link="/my-car-list"></r-cell>
       </div>
-      <mobile-confirm :mobileShow="mobileShow" @closeMobile="cancelMobile" @setedPhone="setPhone"></mobile-confirm>
+      <!-- <mobile-confirm :mobileShow="mobileShow" @closeMobile="cancelMobile" @setedPhone="setPhone"></mobile-confirm> -->
     </div>
   </transition>
 </template>
 <script>
   import RCell from '@/components/RCell'
   // import {getUserinfo} from '@/api/usercenter/index'
-  import mobileConfirm from '@/components/mobileConfirm'
+  // import mobileConfirm from '@/components/mobileConfirm'
   // import cookie from 'js-cookie'
   import {mapGetters} from 'vuex'
   export default {
@@ -38,6 +38,15 @@
     },
     created() {
       // this.getUserinfo()
+    },
+    mounted () {
+      this.$nextTick(() => {
+        if (!this.userinfo.name) {
+          this.$router.push({
+            path: '/',
+          })
+        }
+      })
     },
     computed: {
       ...mapGetters([
@@ -56,15 +65,21 @@
       //   })
       // },
       setPhone() {
-        let phone = this.userinfo.phone
-        if (!phone) {
-          this.mobileShow = true
-        }
+        this.$router.push({
+          path: '/bindphone',
+        })
+        // let phone = this.userinfo.phone
+        // if (!phone) {
+        //   // this.mobileShow = true
+        //   this.$router.push({
+        //     path: '/bindphone',
+        //   })
+        // }
       },
     },
     components: {
       RCell,
-      mobileConfirm,
+      // mobileConfirm,
     },
   }
 </script>

@@ -42,12 +42,24 @@ export const washStateMap = {
     icon: 'state_wait',
     msg: '未使用',
     color: '#0198E7',
-    popup: '免费精洗一次',
+    popup: '该券暂未使用',
   },
   1: {
     icon: 'state_cancel',
     msg: '已使用',
     color: '#666',
     popup: '该券已被使用',
+  },
+  99: {
+    icon: 'selected',
+    msg: '已完成',
+    color: '#FFCC66',
+    popup: '该券已发放',
+  },
+  100: {
+    icon: 'state_cancel',
+    msg: '已失效',
+    color: '#666',
+    popup: '此券已失效',
   },
 }

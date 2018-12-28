@@ -13,8 +13,8 @@
       <scroll class="scroll-box" :style="{bottom: scrollBottom}" :listenScroll="true" @scroll="loadMore" :pullup="true" @scrollToEnd="scrollToEnd" ref="scrollCar">
         <div class="car-list_box">
           <template v-for="(car, index) in carList">
-          <div class="car-list_item van-hairline--bottom" :key="index" @click="carDetail(car.id)" v-if="car.type !== 'A'">
-            <div class="dept-info"><span>{{car.deptName}}</span><span class="no">订单编号：{{car.no}}</span></div>
+          <div class="car-list_item van-hairline--bottom" :key="index" @click="carDetail(car.id)" v-if="car.type !== 'CARD'">
+            <div class="dept-info"><span class="no">{{car.no}}</span><span>{{car.deptName}}</span></div>
             <div class="car-info_box">
             <div class="state" v-show="edit.flag" @click.stop="selectCar(car.id)">
               <icon name="circle" scale='2.5' class="state_icon" v-if="edit.editList !== car.id"></icon>
@@ -35,8 +35,8 @@
               <span>{{stateMsgMap[car.status].msg}}</span>
             </div>
           </div>
-          <div class="car-list_item van-hairline--bottom" :key="index" v-else>
-            <div class="dept-info"><span>{{car.deptName}}</span><span class="no">订单编号：{{car.no}}</span></div>
+          <div class="car-list_item van-hairline--bottom" :key="index" @click="carDetail(car.id)" v-else>
+            <div class="dept-info"><span class="no">{{car.no}}</span><span>{{car.deptName}}</span></div>
             <div class="car-info_box">
             <div class="state" v-show="edit.flag" @click.stop="selectCar(car.id)">
               <icon name="circle" scale='2.5' class="state_icon" v-if="edit.editList !== car.id"></icon>
@@ -48,7 +48,7 @@
             </div>
             <div class="car-info">
               <p class="title">{{car.title}}<span>{{car.tags}}</span></p>
-              <p v-if="car.price" class="price">原价：{{car.price | formatPrice}}元</p>
+              <p v-if="car.price" class="price">销售价：{{car.price | formatPrice}}元</p>
             </div>
             </div>
             <div class="order-state" :style="{color: washStateMap[car.status].color}">
@@ -285,6 +285,7 @@
             name: 'orderDetail',
             query: {
               id,
+              type: 'card',
             },
           })
         }
@@ -371,7 +372,7 @@
       font-size: 14px;
       color: #333;
       line-height: 40px;
-      padding-left: 15px;
+      padding: 0 15px;
       display: flex;
       justify-content: space-between;
       align-items: center;

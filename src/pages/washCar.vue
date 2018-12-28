@@ -132,7 +132,14 @@
         if (cookie.get('phoneNumber')) {
           this.submit()
         } else {
-          this.mobileShow = true
+          this.toastShow.text = '请先绑定手机，即将跳转页面'
+          this.toastShow.flag = !this.toastShow.flag
+          setTimeout(() => {
+            this.$router.push({
+              path: '/bindphone',
+            })
+          }, 1500)
+          // this.mobileShow = true
         }
       },
       getCarList() {
@@ -149,10 +156,10 @@
       submit() {
         if (this.submitDisabled) {
           const data = {
-            car_id: this.selectedCar.id,
+            carId: this.selectedCar.id,
             money: 0,
             remark: '',
-            type: 'A',
+            type: 'cosm',
             deptId: this.selectedNet.id,
             productId: 82,
           }

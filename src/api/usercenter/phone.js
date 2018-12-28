@@ -12,7 +12,7 @@ export function getVerifyCode(phone) {
   })
 }
 
-export function bindMobile(phone, code) {
+export function bindMobile(phone, code, referee) {
   return request({
     url: 'user/bindMobile',
     method: 'POST',
@@ -20,6 +20,7 @@ export function bindMobile(phone, code) {
       data: {
         phone,
         code,
+        referee,
       },
     },
   })

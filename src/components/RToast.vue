@@ -82,7 +82,7 @@
       background: #006105;
     }
     &.text{
-      background: #f43530;
+      background: #CCC;
     }
   }
 

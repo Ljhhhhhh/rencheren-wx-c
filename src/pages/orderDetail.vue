@@ -8,7 +8,7 @@
           <p class="title">{{carInfo.name}}</p>
           <p class="mode">{{carInfo.mode}}</p>
         </div>
-        <div class="show-more">
+        <div class="show-more" v-if="!this.type">
           <icon name="arrow-left" class="arrow-right-black" scale="2.5"></icon>
         </div>
       </div>
@@ -34,8 +34,16 @@
         <p class="dept-name">{{deptInfo.name}}</p>
         <p class="dept-address">{{deptInfo.addr}}</p>
         <p class="dept-time"><span>营业时间：</span>{{deptInfo.time}}</p>
-        <p class="dept-tel"><span>服务热线：</span>{{deptInfo.tel}}</p>
-        <div class="icon"><i></i></div>
+        <p class="dept-tel">
+          <span>服务热线：</span>
+          <span v-if="deptInfo.tel">
+            <a :href="'tel:' + deptInfo.tel">{{deptInfo.tel}}</a>
+          </span>
+          <span v-if="deptInfo.phone">
+            <a :href="'tel:' + deptInfo.phone">{{deptInfo.phone}}</a>
+          </span>
+        </p>
+        <!-- <div class="icon"><i></i></div> -->
       </div>
     </div>
   </div>
@@ -44,15 +52,15 @@
   import {
     orderDetail,
   } from '@/api/mycar/order'
-  import {
-    stateMsgMap,
-  } from '@/config/index'
+  import {washStateMap, stateMsgMap} from '@/config/index'
   export default {
     name: 'orderDetail',
     data() {
       return {
         stateMsgMap,
+        washStateMap,
         id: null,
+        type: '',
         carInfo: {},
         stateInfo: {},
         deptInfo: {},
@@ -70,10 +78,13 @@
     },
     methods: {
       carDetail() {
-        window.location.href = 'http://testwx.chetianyi.com/car-detail/' + this.carInfo.carId
+        if (this.type !== 'card') {
+          window.location.href = 'http://testwx.chetianyi.com/car-detail/' + this.carInfo.carId
+        }
       },
       getDetail() {
         this.id = this.$route.query.id
+        this.type = this.$route.query.type
         orderDetail(this.id).then(res => {
           console.log(res)
           let data = res.data
@@ -84,6 +95,9 @@
             carId: data.productId,
           }
           this.stateInfo = this.stateMsgMap['' + data.status]
+          if (this.type === 'card') {
+            this.stateInfo = this.washStateMap['' + data.status]
+          }
           this.serverInfo = data.server
           if (this.serverInfo) {
             this.serverInfo.headpro = this.serverInfo.headpro ? this.serverInfo.headpro : 'http://thirdwx.qlogo.cn/mmopen/3jiaYjme3ZEjLwZoTq82FKZRkD2XjxEl2hBOPGDsSZt6RHoPic0U0y4DM3iaZmibMlPpMARheIYY9g1qibXkZuibxfjMrzicZ0nOjVn/132'
@@ -91,7 +105,8 @@
           this.deptInfo = {
             addr: data.dept.addr,
             time: data.dept.licenseTimes,
-            tel: data.dept.phone,
+            tel: data.dept.tel,
+            phone: data.dept.phone,
             name: data.dept.name,
           }
         })
@@ -253,6 +268,10 @@
         color: #666;
         font-size: 13px;
         line-height: 23px;
+        a{
+          color: #0198e7;
+          padding-right: rem(10);
+        }
       }
       .icon {
         position: absolute;

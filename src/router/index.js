@@ -18,6 +18,16 @@ export default new Router({
       }],
     },
     {
+      path: '/bindphone',
+      name: 'bindPhone',
+      component: r => require(['@/pages/bindPhone'], r),
+    },
+    {
+      path: '/vip',
+      name: 'vip',
+      component: r => require(['@/pages/vip'], r),
+    },
+    {
       path: '/my-car-list',
       name: 'myCarList',
       component: r => require(['@/pages/myCarList'], r),
