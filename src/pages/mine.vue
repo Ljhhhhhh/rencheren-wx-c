@@ -3,10 +3,10 @@
     <!-- <Header :title="title" :showBack="false"></Header> -->
     <div class="userinfo">
       <div class="info-content">
-        <img :src="userinfo.headpho" class="avatar-default">
+        <img :src="userinfo.headpho || '/usercenter/static/icon/avatar-default.png'" class="avatar-default">
         <div class="username">
-          <p>{{userinfo.name}}</p>
-          <img src="static/icon/ordinary-member.png" class="member-level">
+          <p>{{userinfo.name || '暂未获取用户名'}}</p>
+          <!-- <img src="static/icon/ordinary-member.png" class="member-level"> -->
           <p class="phone" v-if="userinfo.phone">{{showPhone}}</p>
         </div>
       </div>
@@ -225,6 +225,7 @@
     .info-more-btn {
       flex: 1;
       text-align: right;
+      padding: 15px;
 
       img {
         width: 15px;

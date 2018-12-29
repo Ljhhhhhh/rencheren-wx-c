@@ -40,7 +40,7 @@
     },
     computed: {
       codeDisabled() {
-        let reg = (!!this.phone.match(/^(0|86|17951)?(13[0-9]|15[012356789]|17[678]|18[0-9]|14[57])[0-9]{8}$/)) && (this.btnText === '获取验证码' || this.btnText === '请重试')
+        let reg = (!!this.phone.match(/^1[3456789]\d{9}$/)) && (this.btnText === '获取验证码' || this.btnText === '请重试')
         return !reg
       },
       ...mapGetters([

@@ -7,11 +7,11 @@
         </span>
       </Header>
       <div class="info-detail">
-        <r-cell title="更换昵称" link="/user-info">
+        <r-cell title="用户" link="/user-info">
           <span slot="value" class="value">{{userinfo.name}}</span>
         </r-cell>
-        <r-cell title="更换头像" link="/user-info">
-          <img :src="userinfo.headpho" slot="image" class="avatar">
+        <r-cell title="头像" link="/user-info">
+          <img :src="userinfo.headpho || '/usercenter/static/icon/avatar-default.png'" slot="image" class="avatar">
         </r-cell>
         <r-cell title="手机号码" link="/user-info" @click.native="setPhone">
           <span slot="value" class="value">{{userinfo.phone}}</span>
@@ -28,7 +28,9 @@
   // import mobileConfirm from '@/components/mobileConfirm'
   // import cookie from 'js-cookie'
   import {mapGetters} from 'vuex'
-  export default {
+  import cookie from 'js-cookie'
+
+export default {
     name: 'userInfo',
     data() {
       return {
@@ -41,11 +43,16 @@
     },
     mounted () {
       this.$nextTick(() => {
-        if (!this.userinfo.name) {
+        if (!cookie.get('token') || !cookie.get('openid')) {
           this.$router.push({
             path: '/',
           })
         }
+        // if (!this.userinfo.id) {
+        //   this.$router.push({
+        //     path: '/',
+        //   })
+        // }
       })
     },
     computed: {
